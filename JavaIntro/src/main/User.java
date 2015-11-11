@@ -1,13 +1,33 @@
 package main;
 
 public class User {
-	public Boolean loggedIn;
-	public int timesLogged;
-	public static Boolean shutdown;
+	private Boolean loggedIn;
+	private int timesLogged;
+	private String name;
 	
-	User(){
+	User(String username){
 		loggedIn = false;
 		timesLogged = 0;
-		shutdown = false;
+		name = username;
+	}
+	
+	public Boolean isLogged(){
+		return loggedIn;
+	}
+	
+	public int getTimesLogged(){
+		return timesLogged;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void logIn(){
+		loggedIn = true;
+		timesLogged++;
+	}
+	public void logOut(){
+		loggedIn = false;
 	}
 }

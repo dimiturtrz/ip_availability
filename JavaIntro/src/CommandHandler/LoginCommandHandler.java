@@ -1,17 +1,16 @@
 package CommandHandler;
 
-import java.util.Map;
-
-import main.User;
+import main.ApplicationData;
 
 public class LoginCommandHandler implements CommandHandler {
 	@Override
-	public String execute(String[] args, Map<String, User> users){
-		if (users.get(args[0]) != null){
-			users.get(args[0]).loggedIn = true;
-			users.get(args[0]).timesLogged++;
-			return "ok"; 
-		}else
-			return "false username";
+	public String execute(String[] args, ApplicationData appData){
+		if (appData.getUser(args[0]) != null)
+			appData.getUser(args[0]).logIn();
+		else{
+			appData.addUser(args[0]);
+			appData.getUser(args[0]).logIn();
+		}
+		return "ok"; 
 	}
 }

@@ -1,17 +1,16 @@
 package CommandHandler;
 
-import java.util.Map;
-
+import main.ApplicationData;
 import main.User;
 
 public class ListavailableCommandHandler implements CommandHandler{
 	@Override
-	public String execute(String[] args, Map<String, User> users){
-		if (users.get(args[0]) != null){
+	public String execute(String[] args, ApplicationData appData){
+		if (appData.getUser(args[0]) != null){
 			String output = "ok";
-			for (Map.Entry<String, User> entry : users.entrySet()){
-				if(entry.getValue().loggedIn)
-				    output+=(":"+entry.getKey());
+			for (User user : appData.getUsers()){
+				if(user.isLogged())
+				    output+=(":"+user.getName());
 			}
 			return output;
 		}

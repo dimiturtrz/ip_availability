@@ -1,8 +1,7 @@
 package CommandHandler;
 
-import java.util.Map;
-import main.User;
+import main.ApplicationData;
 
 public interface CommandHandler {
-	public String execute(String[] args, Map<String, User> users);
+	public String execute(String[] args, ApplicationData appData);
 }

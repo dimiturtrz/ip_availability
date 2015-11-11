@@ -1,13 +1,11 @@
 package CommandHandler;
 
-import java.util.Map;
-
-import main.User;
+import main.ApplicationData;
 
 public class ShutdownCommandHandler implements CommandHandler{
 	@Override
-	public String execute(String[] args, Map<String, User> users){
-		User.shutdown = true;
+	public String execute(String[] args, ApplicationData appData){
+		ApplicationData.issueShutdown();
 		return "";
 	}
 }
