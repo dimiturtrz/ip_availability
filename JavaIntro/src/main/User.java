@@ -39,7 +39,8 @@ public class User {
 	public void logIn(){
 		loggedIn = true;
 		timesLogged++;
-		visits.add(new Interval(new Date()));
+		if(!isLogged())
+			visits.add(new Interval(new Date()));
 	}
 	
 	public void logOut(){
