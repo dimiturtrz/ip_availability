@@ -1,12 +1,14 @@
 package CommandHandler;
 
 import main.ApplicationData;
+import main.User;
 
 public class InfoCommandHandler implements CommandHandler{
 	@Override
 	public String execute(String[] args, ApplicationData appData){
 		if (appData.getUser(args[0]) != null){
-			return ("ok:"+args[0]+":"+appData.getUser(args[2]).isLogged()+":"+appData.getUser(args[2]).getTimesLogged());
+			User user2 = appData.getUser(args[2]);
+			return ("ok:"+args[0]+":"+user2.isLogged()+":"+user2.getTimesLogged()+":"+user2.getVisits());
 		}else
 			return "error:notlogged";
 	}

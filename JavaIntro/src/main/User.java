@@ -1,9 +1,14 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class User {
 	private Boolean loggedIn;
 	private int timesLogged;
 	private String name;
+	private List<Interval> visits = new ArrayList<Interval>();
 	
 	User(String username){
 		loggedIn = false;
@@ -23,11 +28,22 @@ public class User {
 		return name;
 	}
 	
+	public String getVisits(){
+		String to_s = "";
+		for(Interval visit : visits){
+			to_s += visit.to_s();
+		}
+		return to_s;
+	}
+	
 	public void logIn(){
 		loggedIn = true;
 		timesLogged++;
+		visits.add(new Interval(new Date()));
 	}
+	
 	public void logOut(){
 		loggedIn = false;
+		visits.get(visits.size()-1).setLogoutDate(new Date());
 	}
 }
