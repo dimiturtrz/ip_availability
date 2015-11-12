@@ -28,10 +28,6 @@ public class Main {
 		else return "error:unknowncommand";
 	}
 	
-	public static void addExampleUsers(){
-		
-	}
-	
 	public static void addCommands(){
 		commands.put("login", new LoginCommandHandler());
 		commands.put("logout", new LogoutCommandHandler());
