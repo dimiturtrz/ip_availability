@@ -20,6 +20,7 @@ public class ClientHandler implements Runnable{
 		commands.put("info", new InfoCommandHandler());
 		commands.put("shutdown", new ShutdownCommandHandler());
 		commands.put("listavailable", new ListavailableCommandHandler());
+		commands.put("listabsent", new ListabsentCommandHandler());
 	}
 	
 	private Socket clientSocket;

@@ -8,6 +8,6 @@ public class InfoCommandHandler implements CommandHandler{
 		if (appData.getUser(args[0]) != null){
 			return ("ok:"+args[0]+":"+appData.getUser(args[2]).isLogged()+":"+appData.getUser(args[2]).getTimesLogged());
 		}else
-			return "false username";
+			return "error:notlogged";
 	}
 }

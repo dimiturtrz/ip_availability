@@ -3,13 +3,13 @@ package CommandHandler;
 import main.ApplicationData;
 import main.User;
 
-public class ListavailableCommandHandler implements CommandHandler{
+public class ListabsentCommandHandler implements CommandHandler{
 	@Override
 	public String execute(String[] args, ApplicationData appData){
 		if (appData.getUser(args[0]) != null){
 			String output = "ok";
 			for (User user : appData.getUsers()){
-				if(user.isLogged())
+				if(!user.isLogged())
 				    output+=(":"+user.getName());
 			}
 			return output;

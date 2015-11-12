@@ -9,6 +9,6 @@ public class LogoutCommandHandler implements CommandHandler{
 			appData.getUser(args[0]).logOut();
 			return "ok";
 		}else
-			return "false username";
+			return "error:notlogged";
 	}
 }
