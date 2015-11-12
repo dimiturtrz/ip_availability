@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import socketServer.IOServer;
+
 public class ApplicationData {
 	private Set<User> users = new HashSet<User>();
 	private static boolean shutdown;
@@ -41,5 +43,6 @@ public class ApplicationData {
 
 	public static void issueShutdown() {
 		ApplicationData.shutdown = true;
+		IOServer.stopServer();
 	}
 }

@@ -10,7 +10,7 @@ import java.util.Scanner;
 import main.ApplicationData;
 import CommandHandler.*;
 
-public class ClientHandler {
+public class ClientHandler implements Runnable{
 	private static ApplicationData appData = new ApplicationData();
 	private static final Map<String, CommandHandler> commands;
 	static{
@@ -40,11 +40,20 @@ public class ClientHandler {
 		}
 	}
 	
-	private static String execute(String command){
+	private synchronized String execute(String command){
 		String [] split = command.split(":");
-		if(commands.get(split[1])!=null)
+		if(split.length>1 && commands.get(split[1])!=null)
 			return commands.get(split[1]).execute(split, appData);
 		else return "error:unknowncommand";
 	}
 	
+	public void clean(){
+		try {
+			out.close();
+			in.close();
+			clientSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
