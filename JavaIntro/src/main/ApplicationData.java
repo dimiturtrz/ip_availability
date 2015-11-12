@@ -8,11 +8,11 @@ public class ApplicationData {
 	private Set<User> users = new HashSet<User>();
 	private static boolean shutdown;
 
-	ApplicationData(){
+	public ApplicationData(){
 		this(new String[0]);
 	}
 	
-	ApplicationData(String[] starting_users){
+	public ApplicationData(String[] starting_users){
 		for(String username : starting_users)
 			users.add(new User(username));
 		shutdown = false;
