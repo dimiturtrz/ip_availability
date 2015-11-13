@@ -71,9 +71,10 @@ public class ClientHandler implements Runnable{
 		try {
 			out.close();
 			in.close();
-			clientSocket.close();
 			if(user!=null)
 				user.logOut();
+			clientSocket.close();
+			IOServer.clientHandlers.remove(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

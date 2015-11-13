@@ -12,6 +12,7 @@ public class ClientApplicationData extends ApplicationData {
 		this.handler = handler;
 	}
 	public void connectUserToClient(User user){
-		
+		user.setSocket(handler.getSocket());
+		handler.setUser(user);
 	}
 }

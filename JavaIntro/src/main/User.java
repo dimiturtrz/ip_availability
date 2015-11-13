@@ -31,18 +31,18 @@ public class User {
 	}
 	
 	public String getVisits(){
-		String to_s = "";
+		String string = "";
 		for(Interval visit : visits){
-			to_s += visit.to_s();
+			string += visit.toString();
 		}
-		return to_s;
+		return string;
 	}
 	
 	public void logIn(){
-		loggedIn = true;
-		timesLogged++;
 		if(!isLogged())
 			visits.add(new Interval(new Date()));
+		loggedIn = true;
+		timesLogged++;
 	}
 	
 	public void logOut(){

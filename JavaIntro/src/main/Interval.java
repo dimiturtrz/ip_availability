@@ -14,10 +14,13 @@ public class Interval {
 	public void setLogoutDate(Date logoutDate){
 		to = logoutDate;
 	}
-	public String to_s(){
-		String to_s = "";
-		to_s += dateFormat.format(from);
-		to_s += dateFormat.format(to);
-		return to_s;
+	
+	@Override
+	public String toString(){
+		String string = "";
+		string += ":" + dateFormat.format(from);
+		if(to!=null)
+			string += ":" + dateFormat.format(to);
+		return string;
 	}
 }
