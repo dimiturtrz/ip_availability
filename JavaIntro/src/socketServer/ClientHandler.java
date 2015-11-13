@@ -58,10 +58,9 @@ public class ClientHandler implements Runnable{
 	}
 	
 	private String execute(String command){
-		command = (user == null) ? command : user.getName() + ":" + command; 
 		String [] split = command.split(":");
-		if(split.length>1 && commands.get(split[1])!=null)
-			return commands.get(split[1]).execute(split, clientData);
+		if(commands.get(split[0])!=null)
+			return commands.get(split[0]).execute(split, clientData, user);
 		else return "error:unknowncommand";
 	}
 	
