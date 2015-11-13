@@ -2,14 +2,17 @@ package socketServer;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import main.ApplicationData;
 
 public class IOServer {
 	static ServerSocket listener;
-	public static List<ClientHandler> clientHandlers = new ArrayList<ClientHandler>();
+	public static List<ClientHandler> clientHandlers = Collections.synchronizedList(new ArrayList<ClientHandler>());
 	
 	public IOServer(int port) {
 		try {
@@ -22,11 +25,16 @@ public class IOServer {
 	
 	public void runServer() {
 		while(!ApplicationData.shutdownIssued()){
+			ClientHandler client;
 			try {
-				ClientHandler client = new ClientHandler(listener.accept());
+				client = new ClientHandler(listener.accept());
 				new Thread(client).start();
 				clientHandlers.add(client);
-			} catch (IOException e) {
+			}
+			catch (SocketException se) {
+				System.out.println("closing server socket");;
+			}
+			catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -34,8 +42,10 @@ public class IOServer {
 	
 	public static void stopServer() {
 		try {
-			for(ClientHandler client : clientHandlers){
-				client.clean();
+			Iterator<ClientHandler> clientIterator = clientHandlers.iterator();
+			while (clientIterator.hasNext()){
+				clientIterator.next().clean();
+				clientIterator.remove();
 			}
 			listener.close();
 		} catch (IOException e) {

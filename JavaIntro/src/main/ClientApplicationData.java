@@ -15,4 +15,7 @@ public class ClientApplicationData extends ApplicationData {
 		user.setSocket(handler.getSocket());
 		handler.setUser(user);
 	}
+	public void disconnectUserFromClient(){
+		handler.setUser(null);
+	}
 }

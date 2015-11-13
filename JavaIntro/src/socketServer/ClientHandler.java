@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import main.ApplicationData;
@@ -45,10 +46,14 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public void run(){
-		while(!ApplicationData.shutdownIssued()){
-			final String command = in.next();
-			final String result = execute(command);
-			out.println(result);
+		try{
+			while(!ApplicationData.shutdownIssued()){
+				final String command = in.next();
+				final String result = execute(command);
+				out.println(result);
+			}
+		} catch(NoSuchElementException nsee){
+			clean();
 		}
 	}
 	
@@ -64,6 +69,8 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public void setUser(User user){
+		if(this.user != null)
+			this.user.logOut();
 		this.user = user;
 	}
 	
@@ -71,10 +78,11 @@ public class ClientHandler implements Runnable{
 		try {
 			out.close();
 			in.close();
-			if(user!=null)
+			if(user != null)
 				user.logOut();
 			clientSocket.close();
-			IOServer.clientHandlers.remove(this);
+			if(!ApplicationData.shutdownIssued())
+				IOServer.clientHandlers.remove(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
