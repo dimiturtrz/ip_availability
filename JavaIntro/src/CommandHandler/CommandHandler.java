@@ -2,6 +2,6 @@ package CommandHandler;
 
 import main.ApplicationData;
 
-public interface CommandHandler {
-	public String execute(String[] args, ApplicationData appData);
+public interface CommandHandler<App extends ApplicationData> {
+	public String execute(String[] args, App handler);
 }

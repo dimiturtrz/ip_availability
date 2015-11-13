@@ -1,5 +1,6 @@
 package main;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +10,7 @@ public class User {
 	private int timesLogged;
 	private String name;
 	private List<Interval> visits = new ArrayList<Interval>();
+	private Socket userSocket = null;
 	
 	User(String username){
 		loggedIn = false;
@@ -46,5 +48,14 @@ public class User {
 	public void logOut(){
 		loggedIn = false;
 		visits.get(visits.size()-1).setLogoutDate(new Date());
+		userSocket = null;
+	}
+	
+	public Socket getSocket(){
+		return userSocket;
+	}
+	
+	public void setSocket(Socket socket){
+		userSocket = socket;
 	}
 }

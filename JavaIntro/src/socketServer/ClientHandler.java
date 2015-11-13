@@ -8,10 +8,19 @@ import java.util.Map;
 import java.util.Scanner;
 
 import main.ApplicationData;
-import CommandHandler.*;
+import main.ClientApplicationData;
+import main.User;
+import CommandHandler.CommandHandler;
+import CommandHandler.InfoCommandHandler;
+import CommandHandler.ListabsentCommandHandler;
+import CommandHandler.ListavailableCommandHandler;
+import CommandHandler.LoginCommandHandler;
+import CommandHandler.LogoutCommandHandler;
+import CommandHandler.ShutdownCommandHandler;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ClientHandler implements Runnable{
-	private static ApplicationData appData = new ApplicationData();
+	private ClientApplicationData clientData;
 	private static final Map<String, CommandHandler> commands;
 	static{
 		commands = new HashMap<String, CommandHandler>();
@@ -26,11 +35,13 @@ public class ClientHandler implements Runnable{
 	private Socket clientSocket;
 	private final PrintStream out;
 	private final Scanner in;
+	private User user = null;
 	
 	public ClientHandler(Socket client) throws IOException {
 		clientSocket = client;
 		out = new PrintStream(clientSocket.getOutputStream());
 		in = new Scanner(clientSocket.getInputStream());
+		clientData = new ClientApplicationData(this);
 	}
 	
 	public void run(){
@@ -41,11 +52,19 @@ public class ClientHandler implements Runnable{
 		}
 	}
 	
-	private synchronized String execute(String command){
+	private String execute(String command){
 		String [] split = command.split(":");
 		if(split.length>1 && commands.get(split[1])!=null)
-			return commands.get(split[1]).execute(split, appData);
+			return commands.get(split[1]).execute(split, clientData);
 		else return "error:unknowncommand";
+	}
+	
+	public Socket getSocket(){
+		return clientSocket;
+	}
+	
+	public void setUser(User user){
+		this.user = user;
 	}
 	
 	public void clean(){
@@ -53,6 +72,8 @@ public class ClientHandler implements Runnable{
 			out.close();
 			in.close();
 			clientSocket.close();
+			if(user!=null)
+				user.logOut();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

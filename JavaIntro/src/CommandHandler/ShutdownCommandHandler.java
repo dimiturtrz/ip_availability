@@ -2,7 +2,7 @@ package CommandHandler;
 
 import main.ApplicationData;
 
-public class ShutdownCommandHandler implements CommandHandler{
+public class ShutdownCommandHandler implements CommandHandler<ApplicationData>{
 	@Override
 	public String execute(String[] args, ApplicationData appData){
 		ApplicationData.issueShutdown();

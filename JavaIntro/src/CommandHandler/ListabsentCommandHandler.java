@@ -3,7 +3,7 @@ package CommandHandler;
 import main.ApplicationData;
 import main.User;
 
-public class ListabsentCommandHandler implements CommandHandler{
+public class ListabsentCommandHandler implements CommandHandler<ApplicationData>{
 	@Override
 	public String execute(String[] args, ApplicationData appData){
 		if (appData.getUser(args[0]) != null){

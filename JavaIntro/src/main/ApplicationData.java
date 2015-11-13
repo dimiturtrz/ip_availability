@@ -7,15 +7,15 @@ import java.util.Set;
 import socketServer.IOServer;
 
 public class ApplicationData {
-	private Set<User> users = new HashSet<User>();
+	private static Set<User> users = new HashSet<User>();
 	private static boolean shutdown;
 
 	public ApplicationData(){
 		this(new String[0]);
 	}
 	
-	public ApplicationData(String[] starting_users){
-		for(String username : starting_users)
+	public ApplicationData(String[] startingUsers){
+		for(String username : startingUsers)
 			users.add(new User(username));
 		shutdown = false;
 	}
@@ -26,9 +26,9 @@ public class ApplicationData {
 	
 	public User getUser(String name){
 		for(Iterator<User> it = users.iterator(); it.hasNext(); ){
-			User curr_user = it.next();
-			if(name.equals(curr_user.getName()))
-				return curr_user;
+			User currUser = it.next();
+			if(name.equals(currUser.getName()))
+				return currUser;
 		}
 		return null;
 	}

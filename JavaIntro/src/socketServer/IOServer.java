@@ -9,7 +9,7 @@ import main.ApplicationData;
 
 public class IOServer {
 	static ServerSocket listener;
-	static List<ClientHandler> clientHandlers = new ArrayList<ClientHandler>();
+	public static List<ClientHandler> clientHandlers = new ArrayList<ClientHandler>();
 	
 	public IOServer(int port) {
 		try {

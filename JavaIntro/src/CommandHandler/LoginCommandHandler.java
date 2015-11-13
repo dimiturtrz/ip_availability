@@ -1,10 +1,10 @@
 package CommandHandler;
 
-import main.ApplicationData;
+import main.ClientApplicationData;
 
-public class LoginCommandHandler implements CommandHandler {
+public class LoginCommandHandler implements CommandHandler<ClientApplicationData> {
 	@Override
-	public String execute(String[] args, ApplicationData appData){
+	public synchronized String execute(String[] args, ClientApplicationData appData){
 		if (appData.getUser(args[0]) != null)
 			appData.getUser(args[0]).logIn();
 		else{
